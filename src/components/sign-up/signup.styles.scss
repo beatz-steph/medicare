@@ -1,0 +1,50 @@
+  .sign-up-form {
+    width: 40rem;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin: 3rem auto 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 2.5rem 0 rgba(136, 152, 170, .25);
+
+  }
+
+  .form__title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    align-self: center;
+    margin: 2.5rem 0 .5rem 0;
+    color: #5e5e5e;
+    text-transform: uppercase;
+  }
+
+  .form_text {
+    color: #5e5e5e;
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-align: center;
+    margin: 0 0 2rem 0
+  }
+
+  .auth {
+    &__bottom {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 2rem 2rem 3rem 2rem;
+    }
+
+    &__swap {
+      color: #5e5e5e;
+      font-weight: 400;
+      font-size: 1.3rem;
+      cursor: pointer;
+
+      &-main {
+        color: #1B82C7;
+        font-weight: 600;
+        font-size: 1.4rem;
+      }
+    }
+  }
