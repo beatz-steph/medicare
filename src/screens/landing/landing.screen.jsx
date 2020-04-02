@@ -15,24 +15,11 @@ const LandingScreen = () => {
 						<Logo className="landing__navigation--logo_img" />
 					</div>
 				</div>
-				<Link className="landing__navigation--options" to="/products">
-					Product
-				</Link>
-				<Link className="landing__navigation--options" to="/services">
-					Services
-				</Link>
-				<Link className="landing__navigation--options" to="pricing">
-					Pricing
-				</Link>
-				<Link className="landing__navigation--options" to="/about">
-					About
-				</Link>
 			</ul>
 			<div className="landing__text">
-				<h1 className="landing__text--main">Welcome to Blabber!</h1>
+				<h1 className="landing__text--main">Welcome to Blessed Medicare!</h1>
 				<h1 className="landing__text--sub">
-					the worlds best field service management platform for small to medium
-					scale enterprises
+					The worlds best medical chat platform
 				</h1>
 			</div>
 			<div className="landing__auth">

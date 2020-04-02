@@ -19,7 +19,7 @@ export function* EmailSignInStart({
 }) {
 	try {
 		let auth = yield axios.post(
-			`http://localhost:8081/api/v1/auth/${
+			`https://medicare-server.herokuapp.com/api/v1/auth/${
 				occupation === 'doctor' ? 'doctor' : 'patient'
 			}/signin`,
 			{
@@ -46,7 +46,7 @@ export function* SignUpStart({
 }) {
 	try {
 		const auth = yield axios.post(
-			`http://localhost:8081/api/v1/auth/${
+			`https://medicare-server.herokuapp.com/api/v1/auth/${
 				occupation === 'doctor' ? 'doctor' : 'patient'
 			}/signup`,
 			{
@@ -73,9 +73,12 @@ export function* CheckUserSession() {
 	const { token } = yield select();
 	if (token.token) {
 		try {
-			const auth = yield axios.get('http://localhost:8081/api/v1/auth/', {
-				headers: { Authorization: `Bearer ${token.token}` },
-			});
+			const auth = yield axios.get(
+				'https://medicare-server.herokuapp.com/api/v1/auth/',
+				{
+					headers: { Authorization: `Bearer ${token.token}` },
+				},
+			);
 			yield put(signInSuccess(auth.data));
 		} catch (err) {
 			yield put(signInFailure(err.response.data.error));

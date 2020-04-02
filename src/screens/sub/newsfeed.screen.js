@@ -20,8 +20,9 @@ const NewsFeed = ({ dispatch }) => {
 	useEffect(() => {
 		let fetch = async () => {
 			try {
-				let news = await (await axios.get('http://localhost:8081/api/v1/news'))
-					.data;
+				let news = await (
+					await axios.get('https://medicare-server.herokuapp.com/api/v1/news')
+				).data;
 				console.log(news);
 				setNewsfeed(news);
 			} catch (err) {
