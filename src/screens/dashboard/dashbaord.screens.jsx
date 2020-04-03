@@ -28,8 +28,9 @@ class Dashboard extends React.Component {
 				socket.emit('doctorOnline', {
 					details: this.props.currentUser.doctor,
 				});
-
-				this.fetchPatient();
+				if (this.props.currentUser && this.props.token) {
+					this.fetchPatient();
+				}
 			} else {
 				return;
 			}

@@ -8,6 +8,7 @@ import {
 	signInFailure,
 	signOutSuccess,
 	signOutFailure,
+	checkUserSession,
 } from './user.action';
 import axios from 'axios';
 
@@ -27,9 +28,9 @@ export function* EmailSignInStart({
 				password,
 			},
 		);
-
-		yield put(signInSuccess(auth.data));
 		yield put(setToken(auth.data.token));
+		yield put(signInSuccess(auth.data));
+		yield put(checkUserSession());
 	} catch (err) {
 		yield put(signInFailure(err.response.data.error));
 	}
@@ -42,24 +43,37 @@ export function* onEmailSignInStart() {
 }
 
 export function* SignUpStart({
-	payload: { email, surname, firstname, password, occupation },
+	payload: {
+		email,
+		surname,
+		firstname,
+		password,
+		mdcn,
+		patient,
+		yearOfGraduation,
+		age,
+	},
 }) {
 	try {
 		const auth = yield axios.post(
 			`https://medicare-server.herokuapp.com/api/v1/auth/${
-				occupation === 'doctor' ? 'doctor' : 'patient'
+				patient ? 'patient' : 'doctor'
 			}/signup`,
 			{
 				email,
 				surname,
 				firstname,
 				password,
+				mdcn,
+				yearOfGraduation,
+				age,
 			},
 		);
 		yield console.log(auth);
 		yield put(signUpSuccess());
-		yield put(signInSuccess(auth.data.user));
 		yield put(setToken(auth.data.token));
+		yield put(signInSuccess(auth.data.user));
+		yield put(checkUserSession());
 	} catch (err) {
 		yield put(signUpFailure(err.response.data.error));
 	}

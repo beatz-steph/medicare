@@ -8,17 +8,16 @@ import { selectCurrentUser } from './redux/user/user.selector';
 import { checkUserSession } from './redux/user/user.action';
 
 //ui
-import { Switch, Route, Link, Redirect, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Landing from './screens/landing/landing.screen';
 import Dashboard from './screens/dashboard//dashbaord.screens';
 
 import './vendor.css';
 
 const App = ({ currentUser, dispatch, token }) => {
-	const { url, path } = useRouteMatch();
 	useEffect(() => {
 		dispatch(checkUserSession());
-	}, [dispatch]);
+	}, [token]);
 
 	return (
 		<div>

@@ -9,13 +9,13 @@ const LandingScreen = () => {
 	return (
 		<div className="landing">
 			<div className="landing__top-background"></div>
-			<ul className="landing__navigation">
+			{/* <ul className="landing__navigation">
 				<div className="landing__navigation--logo">
 					<div className="landing__navigation--logo_1">
 						<Logo className="landing__navigation--logo_img" />
 					</div>
 				</div>
-			</ul>
+			</ul> */}
 			<div className="landing__text">
 				<h1 className="landing__text--main">Welcome to Blessed Medicare!</h1>
 				<h1 className="landing__text--sub">

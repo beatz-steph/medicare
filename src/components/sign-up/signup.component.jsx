@@ -16,7 +16,12 @@ const SignUp = ({ dispatch, setShowSignUp }) => {
 		confirmPassword: '',
 		firstname: '',
 		surname: '',
+		mdcn: '',
+		yearOfGraduation: '',
+		age: '',
 	});
+
+	const [patient, setPatient] = useState(true);
 
 	const handleChange = event => {
 		const { name, value } = event.target;
@@ -30,7 +35,7 @@ const SignUp = ({ dispatch, setShowSignUp }) => {
 			return;
 		}
 
-		dispatch(signUpStart(signUpCredentials));
+		dispatch(signUpStart({ ...signUpCredentials, patient: patient }));
 	};
 
 	const {
@@ -39,12 +44,17 @@ const SignUp = ({ dispatch, setShowSignUp }) => {
 		firstname,
 		surname,
 		confirmPassword,
+		mdcn,
+		yearOfGraduation,
+		age,
 	} = signUpCredentials;
 
 	return (
 		<form onSubmit={_handleSubmit} className="sign-up-form">
 			<div className="form__title">Sign Up</div>
-			<h3 className="form_text">Plese enter yor appropriate credentials</h3>
+			<div onClick={() => setPatient(!patient)} className="switch">
+				{patient ? 'Patient' : 'doctor'}
+			</div>
 			<FormInput
 				type="text"
 				value={firstname}
@@ -66,6 +76,31 @@ const SignUp = ({ dispatch, setShowSignUp }) => {
 				name="email"
 				placeholder="Email"
 			/>
+			{!patient ? (
+				<>
+					<FormInput
+						type="text"
+						value={mdcn}
+						handleChange={handleChange}
+						name="mdcn"
+						placeholder="MDCN"
+					/>
+					<FormInput
+						type="number"
+						value={age}
+						handleChange={handleChange}
+						name="age"
+						placeholder="Age"
+					/>
+					<FormInput
+						type="text"
+						value={yearOfGraduation}
+						handleChange={handleChange}
+						name="yearOfGraduation"
+						placeholder="Year of graduation"
+					/>
+				</>
+			) : null}
 			<FormInput
 				type="password"
 				value={password}

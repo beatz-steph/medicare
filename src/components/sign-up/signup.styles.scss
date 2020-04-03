@@ -48,3 +48,15 @@
       }
     }
   }
+
+
+  .switch {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem 3rem;
+    background-color: #172D50;
+    color: #fff;
+    margin: 1rem auto;
+    font-size: 1.6rem;
+  }
