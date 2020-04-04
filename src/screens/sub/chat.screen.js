@@ -234,7 +234,9 @@ class ChatScreen extends React.Component {
 						return (
 							<UserListItem
 								color={
-									patient.id === this.state.selectedChatId ? 'blue' : 'white'
+									patient._id === this.state.selectedChatId
+										? 'rgba(0,0,0,.25)'
+										: '#fff'
 								}
 								key={patient._id}
 								onClick={() =>

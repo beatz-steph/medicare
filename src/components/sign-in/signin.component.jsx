@@ -40,7 +40,17 @@ const SignIn = ({ dispatch, setShowSignUp }) => {
 
 	return (
 		<form onSubmit={handleSubmit} className="sign-up-form">
-			<div className="form__title">Sign In</div>
+			<div className="form__title">
+				Sign In as a{`${occupation ? ' patient' : ' doctor'}`}
+			</div>
+			<div
+				onClick={() => {
+					setOccupation(!occupation);
+				}}
+				className="switch_button"
+			>
+				{occupation === true ? 'Switch to medical doctor' : 'Switch to patient'}
+			</div>
 			<FormInput
 				type="email"
 				value={email}
@@ -56,14 +66,7 @@ const SignIn = ({ dispatch, setShowSignUp }) => {
 				placeholder="Password"
 			/>
 			<Button placeholder="Sign In" />
-			<div
-				onClick={() => {
-					setOccupation(!occupation);
-				}}
-				className="switch_button"
-			>
-				{occupation === true ? 'Switch to medical doctor' : 'Switch to patient'}
-			</div>
+
 			<div className="auth__bottom">
 				<h3 className="auth__swap" onClick={() => setShowSignUp(true)}>
 					Don't hane an account?

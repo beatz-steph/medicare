@@ -51,9 +51,11 @@ const SignUp = ({ dispatch, setShowSignUp }) => {
 
 	return (
 		<form onSubmit={_handleSubmit} className="sign-up-form">
-			<div className="form__title">Sign Up</div>
+			<div className="form__title">
+				Sign Up as a {patient ? 'patient' : 'doctor'}
+			</div>
 			<div onClick={() => setPatient(!patient)} className="switch">
-				{patient ? 'Patient' : 'doctor'}
+				{!patient ? 'Switch to Patient' : 'Switch to Doctor'}
 			</div>
 			<FormInput
 				type="text"
