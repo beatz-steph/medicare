@@ -1,39 +1,36 @@
 import React, { useState } from 'react';
 
-import { connect } from 'react-redux';
-import { emailSignInStart } from '../../redux/user/user.action';
 import FormInput from '../form-input/form-input.component';
 
 import Button from '../btn/btn.component';
 
 import './signin.styles.scss';
 
-const SignIn = ({ dispatch, setShowSignUp }) => {
+const SignIn = ({ handleSumit, setShowSignUp }) => {
 	const [signInCredentials, setSignInCredentials] = useState({
 		email: '',
 		password: '',
+		error: [],
 	});
 
 	const [occupation, setOccupation] = useState(true);
 
-	const handleChange = event => {
+	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setSignInCredentials({ ...signInCredentials, [name]: value });
 	};
 
-	const handleSubmit = event => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (!password) {
 			alert('password field cannot be empty');
 			return;
 		}
 
-		dispatch(
-			emailSignInStart({
-				...signInCredentials,
-				occupation: occupation ? 'patient' : 'doctor',
-			}),
-		);
+		handleSumit({
+			...signInCredentials,
+			occupation: occupation ? 'patient' : 'doctor',
+		});
 	};
 
 	const { email, password } = signInCredentials;
@@ -78,4 +75,4 @@ const SignIn = ({ dispatch, setShowSignUp }) => {
 	);
 };
 
-export default connect(null)(SignIn);
+export default SignIn;

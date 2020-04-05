@@ -1,11 +1,5 @@
-import React, { useEffect } from 'react';
-
-//redux
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectToken } from './redux/token/token.functions';
-import { selectCurrentUser } from './redux/user/user.selector';
-import { checkUserSession } from './redux/user/user.action';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 //ui
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
@@ -14,20 +8,41 @@ import Dashboard from './screens/dashboard//dashbaord.screens';
 
 import './vendor.css';
 
-const App = ({ currentUser, dispatch, token }) => {
+const App = () => {
+	const [token, setToken] = useState(localStorage.getItem('token') || '');
+	const [currentUser, setCurrentUser] = useState('');
+
 	useEffect(() => {
-		dispatch(checkUserSession());
+		async function getCurrentUser() {
+			try {
+				const auth = await axios.get(
+					'https://medicare-server.herokuapp.com/api/v1/auth/',
+					{
+						headers: { Authorization: `Bearer ${token}` },
+					},
+				);
+				setCurrentUser(auth.data);
+			} catch (err) {
+				console.log(err.response.data.error);
+			}
+		}
+
+		getCurrentUser();
 	}, [token]);
 
 	return (
 		<div>
 			<Switch>
 				<Route path="/" exact>
-					{!currentUser ? <Landing /> : <Redirect to="/dashboard" />}
+					{!currentUser ? (
+						<Landing setToken={setToken} setCurrentUser={setCurrentUser} />
+					) : (
+						<Redirect to="/dashboard" />
+					)}
 				</Route>
 				<Route
 					path="/dashboard"
-					render={routeProps => (
+					render={(routeProps) => (
 						<Dashboard
 							{...routeProps}
 							token={token}
@@ -35,13 +50,11 @@ const App = ({ currentUser, dispatch, token }) => {
 						/>
 					)}
 				></Route>
+
+				<div>set value</div>
 			</Switch>
 		</div>
 	);
 };
 
-const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser,
-	token: selectToken,
-});
-export default connect(mapStateToProps)(App);
+export default App;

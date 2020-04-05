@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
 				return;
 			}
 
-			socket.on('message', message => {
+			socket.on('message', (message) => {
 				console.log(message);
 				this.setState(
 					{
@@ -61,8 +61,8 @@ class Dashboard extends React.Component {
 				...this.state,
 				patients: patients.data,
 			},
-			state => {
-				console.log(state);
+			(state) => {
+				console.log(this.state);
 			},
 		);
 	};

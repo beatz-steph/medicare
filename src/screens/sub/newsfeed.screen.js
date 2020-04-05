@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-
 import axios from 'axios';
 
 import Card from '../../components/card/card.component';
@@ -14,7 +11,7 @@ const View = styled.div`
 	overflow-y: scroll;
 `;
 
-const NewsFeed = ({ dispatch }) => {
+const NewsFeed = () => {
 	let [newsfeed, setNewsfeed] = useState([]);
 
 	useEffect(() => {
@@ -33,11 +30,11 @@ const NewsFeed = ({ dispatch }) => {
 	}, []);
 	return (
 		<View>
-			{newsfeed.map(feed => {
+			{newsfeed.map((feed) => {
 				return <Card key={feed._id} feed={feed} />;
 			})}
 		</View>
 	);
 };
 
-export default connect(null)(NewsFeed);
+export default NewsFeed;

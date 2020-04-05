@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 
 //redux part
-import { connect } from 'react-redux';
-import { signUpStart } from '../../redux/user/user.action';
 
 //Ui part
 import FormInput from '../form-input/form-input.component';
 import Button from '../btn/btn.component';
 import './signup.styles.scss';
 
-const SignUp = ({ dispatch, setShowSignUp }) => {
+const SignUp = ({ handleSumit, setShowSignUp }) => {
 	const [signUpCredentials, setSignUpCredentials] = useState({
 		email: '',
 		password: '',
@@ -23,19 +21,22 @@ const SignUp = ({ dispatch, setShowSignUp }) => {
 
 	const [patient, setPatient] = useState(true);
 
-	const handleChange = event => {
+	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setSignUpCredentials({ ...signUpCredentials, [name]: value });
 	};
 
-	const _handleSubmit = event => {
+	const _handleSubmit = (event) => {
 		event.preventDefault();
 		if (password !== confirmPassword) {
 			alert('passwords dont match');
 			return;
 		}
 
-		dispatch(signUpStart({ ...signUpCredentials, patient: patient }));
+		handleSumit({
+			...signUpCredentials,
+			occupation: patient ? 'patient' : 'doctor',
+		});
 	};
 
 	const {
@@ -129,4 +130,4 @@ const SignUp = ({ dispatch, setShowSignUp }) => {
 	);
 };
 
-export default connect(null)(SignUp);
+export default SignUp;

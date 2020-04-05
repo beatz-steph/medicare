@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { signOutStart } from '../../redux/user/user.action';
 
 import './top-nav.styles.scss';
 
-const TopNav = ({ dispatch }) => {
+const TopNav = () => {
 	const [showDrop, setShowDrop] = useState(false);
 
 	const _toggleDrop = () => {
@@ -12,7 +10,7 @@ const TopNav = ({ dispatch }) => {
 	};
 
 	const __logout = () => {
-		dispatch(signOutStart());
+		console.log('log out');
 	};
 
 	return (
@@ -48,4 +46,4 @@ const TopNav = ({ dispatch }) => {
 	);
 };
 
-export default connect(null)(TopNav);
+export default TopNav;

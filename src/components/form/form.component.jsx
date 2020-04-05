@@ -5,11 +5,6 @@ import { Modal } from 'reactstrap';
 
 //redux part
 
-import { connect } from 'react-redux';
-import { createCollectionStart } from '../../redux/worker/worker.actions';
-import { createStructuredSelector } from 'reselect';
-import { selectIsCreatingCollection } from '../../redux/worker/worker.selector';
-
 const FormBody = styled.form`
 	display: flex;
 	flex-direction: column;
@@ -70,14 +65,14 @@ const FormPlaceholder = styled.div`
 	cursor: pointer;
 `;
 
-const Form = ({ dispatch, isCreating }) => {
+const Form = () => {
 	const [formContent, setFormContent] = useState({
 		name: '',
 	});
 
 	const [formShow, setFormShow] = useState(false);
 
-	const __handleChange = event => {
+	const __handleChange = (event) => {
 		const { name, value } = event.target;
 		setFormContent({
 			...formContent,
@@ -89,7 +84,7 @@ const Form = ({ dispatch, isCreating }) => {
 		setFormShow(!formShow);
 	};
 
-	const __handleSubmit = async e => {
+	const __handleSubmit = async (e) => {
 		e.preventDefault();
 		dispatch(createCollectionStart(formContent));
 	};
@@ -126,8 +121,4 @@ const Form = ({ dispatch, isCreating }) => {
 	);
 };
 
-const mapStateToProps = createStructuredSelector({
-	isCreating: selectIsCreatingCollection,
-});
-
-export default connect(mapStateToProps)(Form);
+export default Form;
