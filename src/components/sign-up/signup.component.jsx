@@ -3,11 +3,21 @@ import React, { useState } from 'react';
 //redux part
 
 //Ui part
+import Loader from '../loader';
 import FormInput from '../form-input/form-input.component';
 import Button from '../btn/btn.component';
 import './signup.styles.scss';
 
-const SignUp = ({ handleSumit, setShowSignUp }) => {
+import { Btn } from '../sign-in/signin.component';
+
+const SignUp = ({
+	handleSumit,
+	setShowSignUp,
+	err,
+	setErr,
+	setIsFetching,
+	isFetching,
+}) => {
 	const [signUpCredentials, setSignUpCredentials] = useState({
 		email: '',
 		password: '',
@@ -29,7 +39,7 @@ const SignUp = ({ handleSumit, setShowSignUp }) => {
 	const _handleSubmit = (event) => {
 		event.preventDefault();
 		if (password !== confirmPassword) {
-			alert('passwords dont match');
+			setErr('passwords do not match');
 			return;
 		}
 
@@ -37,6 +47,9 @@ const SignUp = ({ handleSumit, setShowSignUp }) => {
 			...signUpCredentials,
 			occupation: patient ? 'patient' : 'doctor',
 		});
+
+		setErr('');
+		setIsFetching(true);
 	};
 
 	const {
@@ -58,6 +71,22 @@ const SignUp = ({ handleSumit, setShowSignUp }) => {
 			<div onClick={() => setPatient(!patient)} className="switch">
 				{!patient ? 'Switch to Patient' : 'Switch to Doctor'}
 			</div>
+			{err ? (
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						textAlign: 'center',
+						fontSize: '1.4rem',
+						margin: '1rem 0',
+					}}
+					class="alert alert-danger"
+					role="alert"
+				>
+					{err}
+				</div>
+			) : null}
 			<FormInput
 				type="text"
 				value={firstname}
@@ -118,9 +147,15 @@ const SignUp = ({ handleSumit, setShowSignUp }) => {
 				name="confirmPassword"
 				placeholder="Confirm password"
 			/>
-			<Button placeholder="Sign Up" />
+			<Btn>{isFetching ? <Loader /> : 'Sign in'}</Btn>
 			<div className="auth__bottom">
-				<h3 className="auth__swap" onClick={() => setShowSignUp(false)}>
+				<h3
+					className="auth__swap"
+					onClick={() => {
+						setShowSignUp(false);
+						setErr('');
+					}}
+				>
 					Alreday hane an account?
 					<span className="auth__swap-main"> Sign In</span>
 				</h3>

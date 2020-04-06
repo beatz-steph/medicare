@@ -87,7 +87,10 @@ class Dashboard extends React.Component {
 			<div className="landing">
 				<div className="landing__top-background"></div>
 				<div className="mainscreen">
-					<Sidebar url={this.props.match.url} />
+					<Sidebar
+						url={this.props.match.url}
+						currentUser={this.props.currentUser}
+					/>
 					<Switch>
 						<Route exact path={`${this.props.match.path}/`}>
 							<NewsFeed />

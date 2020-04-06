@@ -6,6 +6,8 @@ import SignUp from '../sign-up/signup.component';
 
 const SignInSignUp = ({ setCurrentUser, setToken }) => {
 	const [showSignUp, setShowSignUp] = useState(false);
+	const [isFetching, setIsFetching] = useState(false);
+	const [err, setErr] = useState('');
 
 	const __signup = async ({
 		email,
@@ -38,7 +40,8 @@ const SignInSignUp = ({ setCurrentUser, setToken }) => {
 
 			localStorage.setItem('token', auth.data.token);
 		} catch (err) {
-			console.log(err.response.data.error);
+			setErr(err.response.data.error.message);
+			setIsFetching(false);
 		}
 	};
 
@@ -58,14 +61,29 @@ const SignInSignUp = ({ setCurrentUser, setToken }) => {
 			setCurrentUser(auth.data.currentUser);
 			localStorage.setItem('token', auth.data.token);
 		} catch (err) {
-			console.log(err.response.data.error);
+			setErr(err.response.data.error.message);
+			setIsFetching(false);
 		}
 	};
 
 	return showSignUp ? (
-		<SignUp handleSumit={__signup} setShowSignUp={setShowSignUp} />
+		<SignUp
+			err={err}
+			setErr={setErr}
+			isFetching={isFetching}
+			setIsFetching={setIsFetching}
+			handleSumit={__signup}
+			setShowSignUp={setShowSignUp}
+		/>
 	) : (
-		<SignIn handleSumit={__signin} setShowSignUp={setShowSignUp} />
+		<SignIn
+			err={err}
+			setErr={setErr}
+			isFetching={isFetching}
+			setIsFetching={setIsFetching}
+			handleSumit={__signin}
+			setShowSignUp={setShowSignUp}
+		/>
 	);
 };
 
