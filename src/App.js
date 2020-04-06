@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import styled from 'styled-components';
 //ui
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Landing from './screens/landing/landing.screen';
 import Dashboard from './screens/dashboard//dashbaord.screens';
 
 import './vendor.css';
+
+const ModalHolder = styled.div`
+	background-color: rgba(0, 0, 0, 0.85);
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 300;
+`;
 
 const App = () => {
 	const [token, setToken] = useState(localStorage.getItem('token') || '');

@@ -9,6 +9,7 @@ import { Switch, Route } from 'react-router-dom';
 import NewsFeed from '../../screens/sub/newsfeed.screen';
 import ChatScreen from '../sub/chat.screen';
 import PatientsList from '../sub/patientListView';
+import DrugRequest from '../sub/drugRequest';
 
 let socket = io('https://medicare-server.herokuapp.com/');
 class Dashboard extends React.Component {
@@ -92,7 +93,7 @@ class Dashboard extends React.Component {
 							<NewsFeed />
 						</Route>
 						<Route path={`${this.props.match.path}/drugrequest`}>
-							<div>drug request screen</div>
+							<DrugRequest />
 						</Route>
 						<Route path={`${this.props.match.path}/patients`}>
 							<PatientsList patients={this.state.patients} />
