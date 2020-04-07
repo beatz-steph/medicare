@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+
+//redux
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectToken } from './redux/token/token.functions';
+import { selectCurrentUser } from './redux/user/user.selector';
+import { checkUserSession } from './redux/user/user.action';
+
 //ui
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Landing from './screens/landing/landing.screen';
@@ -8,49 +14,20 @@ import Dashboard from './screens/dashboard//dashbaord.screens';
 
 import './vendor.css';
 
-const ModalHolder = styled.div`
-	background-color: rgba(0, 0, 0, 0.85);
-	width: 100vw;
-	height: 100vh;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 300;
-`;
-
-const baseurl = process.env.REACT_APP_BASE_URL;
-
-const App = () => {
-	const [token, setToken] = useState(localStorage.getItem('token') || '');
-	const [currentUser, setCurrentUser] = useState('');
-
+const App = ({ currentUser, dispatch, token }) => {
 	useEffect(() => {
-		async function getCurrentUser() {
-			try {
-				const auth = await axios.get(`${baseurl}/api/v1/auth/`, {
-					headers: { Authorization: `Bearer ${token}` },
-				});
-				setCurrentUser(auth.data);
-			} catch (err) {
-				console.log(err);
-			}
-		}
-		getCurrentUser();
+		dispatch(checkUserSession());
 	}, [token]);
 
 	return (
 		<div>
 			<Switch>
 				<Route path="/" exact>
-					{!currentUser ? (
-						<Landing setToken={setToken} setCurrentUser={setCurrentUser} />
-					) : (
-						<Redirect to="/dashboard" />
-					)}
+					{!currentUser ? <Landing /> : <Redirect to="/dashboard" />}
 				</Route>
 				<Route
 					path="/dashboard"
-					render={(routeProps) => (
+					render={routeProps => (
 						<Dashboard
 							{...routeProps}
 							token={token}
@@ -58,11 +35,13 @@ const App = () => {
 						/>
 					)}
 				></Route>
-
-				<div>set value</div>
 			</Switch>
 		</div>
 	);
 };
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+	currentUser: selectCurrentUser,
+	token: selectToken,
+});
+export default connect(mapStateToProps)(App);

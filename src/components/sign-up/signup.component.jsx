@@ -1,23 +1,15 @@
 import React, { useState } from 'react';
 
 //redux part
+import { connect } from 'react-redux';
+import { signUpStart } from '../../redux/user/user.action';
 
 //Ui part
-import Loader from '../loader';
 import FormInput from '../form-input/form-input.component';
 import Button from '../btn/btn.component';
 import './signup.styles.scss';
 
-import { Btn } from '../sign-in/signin.component';
-
-const SignUp = ({
-	handleSumit,
-	setShowSignUp,
-	err,
-	setErr,
-	setIsFetching,
-	isFetching,
-}) => {
+const SignUp = ({ dispatch, setShowSignUp }) => {
 	const [signUpCredentials, setSignUpCredentials] = useState({
 		email: '',
 		password: '',
@@ -31,25 +23,19 @@ const SignUp = ({
 
 	const [patient, setPatient] = useState(true);
 
-	const handleChange = (event) => {
+	const handleChange = event => {
 		const { name, value } = event.target;
 		setSignUpCredentials({ ...signUpCredentials, [name]: value });
 	};
 
-	const _handleSubmit = (event) => {
+	const _handleSubmit = event => {
 		event.preventDefault();
 		if (password !== confirmPassword) {
-			setErr('passwords do not match');
+			alert('passwords dont match');
 			return;
 		}
 
-		handleSumit({
-			...signUpCredentials,
-			occupation: patient ? 'patient' : 'doctor',
-		});
-
-		setErr('');
-		setIsFetching(true);
+		dispatch(signUpStart({ ...signUpCredentials, patient: patient }));
 	};
 
 	const {
@@ -71,22 +57,6 @@ const SignUp = ({
 			<div onClick={() => setPatient(!patient)} className="switch">
 				{!patient ? 'Switch to Patient' : 'Switch to Doctor'}
 			</div>
-			{err ? (
-				<div
-					style={{
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						textAlign: 'center',
-						fontSize: '1.4rem',
-						margin: '1rem 0',
-					}}
-					class="alert alert-danger"
-					role="alert"
-				>
-					{err}
-				</div>
-			) : null}
 			<FormInput
 				type="text"
 				value={firstname}
@@ -147,15 +117,9 @@ const SignUp = ({
 				name="confirmPassword"
 				placeholder="Confirm password"
 			/>
-			<Btn>{isFetching ? <Loader /> : 'Sign in'}</Btn>
+			<Button placeholder="Sign Up" />
 			<div className="auth__bottom">
-				<h3
-					className="auth__swap"
-					onClick={() => {
-						setShowSignUp(false);
-						setErr('');
-					}}
-				>
+				<h3 className="auth__swap" onClick={() => setShowSignUp(false)}>
 					Alreday hane an account?
 					<span className="auth__swap-main"> Sign In</span>
 				</h3>
@@ -165,4 +129,4 @@ const SignUp = ({
 	);
 };
 
-export default SignUp;
+export default connect(null)(SignUp);

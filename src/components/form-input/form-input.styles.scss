@@ -29,18 +29,6 @@
         transition: all .2s ease-in-out;
     }
 
-    .fixed-label1 {
-        position: absolute;
-        top: 0;
-        left: 3rem;
-        padding: 0 .5rem;
-        background-color: #ffffff;
-        font-size: 1rem;
-        color: #c7c7c7;
-        font-weight: 400;
-        transition: all .2s ease-in-out;
-    }
-
 
     &__field {
         box-sizing: border-box;
@@ -66,25 +54,7 @@
                 font-weight: 400;
             }
 
-            &~.form-input__label1 {
-                top: 0;
-                padding: 0 .5rem;
-                background-color: #ffffff;
-                font-size: 1.2rem;
-                color: #1B82C7;
-                font-weight: 400;
-            }
-
             &~.fixed-label {
-                top: 0;
-                padding: 0 .5rem;
-                background-color: #ffffff;
-                font-size: 1rem;
-                color: #1B82C7;
-                font-weight: 400;
-            }
-
-            &~.fixed-label1 {
                 top: 0;
                 padding: 0 .5rem;
                 background-color: #ffffff;

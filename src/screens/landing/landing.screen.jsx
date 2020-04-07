@@ -5,7 +5,7 @@ import SignInSignUp from '../../components/sign-in-sign-up/sign-in-sign-up.compo
 
 import './landing.styles.scss';
 
-const LandingScreen = ({ setCurrentUser, setToken }) => {
+const LandingScreen = () => {
 	return (
 		<div className="landing">
 			<div className="landing__top-background"></div>
@@ -23,7 +23,7 @@ const LandingScreen = ({ setCurrentUser, setToken }) => {
 				</h1>
 			</div>
 			<div className="landing__auth">
-				<SignInSignUp setCurrentUser={setCurrentUser} setToken={setToken} />
+				<SignInSignUp />
 			</div>
 		</div>
 	);

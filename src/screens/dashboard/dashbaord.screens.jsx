@@ -9,11 +9,8 @@ import { Switch, Route } from 'react-router-dom';
 import NewsFeed from '../../screens/sub/newsfeed.screen';
 import ChatScreen from '../sub/chat.screen';
 import PatientsList from '../sub/patientListView';
-import DrugRequest from '../sub/drugRequest';
 
-const baseurl = process.env.REACT_APP_BASE_URL;
-
-let socket = io(baseurl);
+let socket = io('https://medicare-server.herokuapp.com/');
 class Dashboard extends React.Component {
 	state = {
 		patients: [],
@@ -39,43 +36,22 @@ class Dashboard extends React.Component {
 				return;
 			}
 
-			//socket for messae
-			socket.on('message', (message) => {
+			socket.on('message', message => {
 				console.log(message);
 				this.setState(
 					{
 						...this.state,
 						chatHistory: [...this.state.chatHistory, message],
 					},
-					console.log(message),
+					console.log(this.state),
 				);
-			});
-
-			//socket for online patients
-			socket.on('PatientIsonline', (data) => {
-				let online = data.details.map((user) => {
-					return user.id;
-				});
-
-				let newUsers = this.state.patients.map((user) =>
-					online.indexOf(user._id) > -1
-						? { ...user, online: true }
-						: { ...user, online: false },
-				);
-
-				this.setState({
-					...this.state,
-					patients: newUsers,
-				});
-
-				console.log(newUsers);
 			});
 		}
 	}
 
 	fetchPatient = async () => {
 		let patients = await axios.get(
-			`${baseurl}/api/v1/doctor/${this.props.currentUser.doctor.id}/patients`,
+			`https://medicare-server.herokuapp.com/api/v1/doctor/${this.props.currentUser.doctor.id}/patients`,
 			{
 				headers: { Authorization: `Bearer ${this.props.token}` },
 			},
@@ -85,8 +61,8 @@ class Dashboard extends React.Component {
 				...this.state,
 				patients: patients.data,
 			},
-			() => {
-				console.log(this.state);
+			state => {
+				console.log(state);
 			},
 		);
 	};
@@ -110,16 +86,13 @@ class Dashboard extends React.Component {
 			<div className="landing">
 				<div className="landing__top-background"></div>
 				<div className="mainscreen">
-					<Sidebar
-						url={this.props.match.url}
-						currentUser={this.props.currentUser}
-					/>
+					<Sidebar url={this.props.match.url} />
 					<Switch>
 						<Route exact path={`${this.props.match.path}/`}>
 							<NewsFeed />
 						</Route>
 						<Route path={`${this.props.match.path}/drugrequest`}>
-							<DrugRequest />
+							<div>drug request screen</div>
 						</Route>
 						<Route path={`${this.props.match.path}/patients`}>
 							<PatientsList patients={this.state.patients} />
@@ -129,7 +102,6 @@ class Dashboard extends React.Component {
 						</Route>
 						<Route path={`${this.props.match.path}/chat`}>
 							<ChatScreen
-								onlinePatients={this.state.onlinePatients}
 								__submit={this.__Submit}
 								chatHistory={this.state.chatHistory}
 								socket={socket}

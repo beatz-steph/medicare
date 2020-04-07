@@ -99,7 +99,7 @@ const DocConvo = styled.div`
 
 const UserListItem = styled.div`
 	padding: 1rem 2rem;
-	background-color: ${(props) => props.color};
+	background-color: ${props => props.color};
 	align-self: flex-start;
 	font-size: 1.6rem;
 	margin-top: 2px;
@@ -107,17 +107,6 @@ const UserListItem = styled.div`
 	font-weight: '800';
 	text-overflow: ellipsis;
 	cursor: pointer;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-`;
-
-const Indicator = styled.div`
-	width: 1.5rem;
-	height: 1.5rem;
-	background-color: #99f793;
-	border-radius: 50%;
-	margin-right: 1rem;
 `;
 
 const Heading = styled.div`
@@ -150,7 +139,7 @@ class ChatScreen extends React.Component {
 			return;
 		}
 		let list = this.props.chatHistory.filter(
-			(chat) => chat.details.id === this.state.selectedChatId,
+			chat => chat.details.id === this.state.selectedChatId,
 		);
 
 		this.setState({
@@ -159,7 +148,7 @@ class ChatScreen extends React.Component {
 		});
 	};
 
-	selectPatient = (details) => {
+	selectPatient = details => {
 		if (this.props.currentUser.patient) {
 			return;
 		}
@@ -176,11 +165,7 @@ class ChatScreen extends React.Component {
 		console.log(this.state);
 	};
 
-	// onlineIds = this.props.onlinePatients.map((online) => {
-	// 	return online.id;
-	// });
-
-	__onSubmitPatient = (e) => {
+	__onSubmitPatient = e => {
 		e.preventDefault();
 		this.props.__submit({ newMessage: this.state.message });
 		this.setState({
@@ -189,7 +174,7 @@ class ChatScreen extends React.Component {
 		});
 	};
 
-	__onSubmitDoctor = (e) => {
+	__onSubmitDoctor = e => {
 		e.preventDefault();
 		this.props.__submit({
 			newMessage: this.state.message,
@@ -201,7 +186,7 @@ class ChatScreen extends React.Component {
 		});
 	};
 
-	__onChange = (e) => {
+	__onChange = e => {
 		this.setState({
 			...this.state,
 			message: e.target.value,
@@ -245,7 +230,7 @@ class ChatScreen extends React.Component {
 							Patients list
 						</span>
 					</Heading>
-					{this.props.patients.map((patient) => {
+					{this.props.patients.map(patient => {
 						return (
 							<UserListItem
 								color={
@@ -260,16 +245,13 @@ class ChatScreen extends React.Component {
 										selectedChatId: patient._id,
 									})
 								}
-							>
-								{patient.online ? <Indicator /> : null}
-								{`${patient.firstname} ${patient.surname}`}
-							</UserListItem>
+							>{`${patient.firstname} ${patient.surname}`}</UserListItem>
 						);
 					})}
 				</OnlinePatientsList>
 				<DocConvo>
 					{this.props.chatHistory
-						.filter((msg) => msg.details.id === this.state.selectedChatId)
+						.filter(msg => msg.details.id === this.state.selectedChatId)
 						.map((chat, index) => {
 							if (chat.profession === 'doctor') {
 								return (
