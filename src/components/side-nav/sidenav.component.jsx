@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 import './sidenav.styles.scss';
 
-const SidenavComponent = ({ url, currentUser }) => {
+const SidenavComponent = ({ url }) => {
 	const [route, setRoute] = useState('Home');
 
 	return (
@@ -44,40 +44,36 @@ const SidenavComponent = ({ url, currentUser }) => {
 					></ion-icon>
 					<span className="sidenav__routes--option_text">Chat</span>
 				</Link>
-				{currentUser.doctor ? (
-					<>
-						<Link
-							to={`${url}/patients`}
-							className={`sidenav__routes--option  ${
-								route === 'patients' ? 'active' : null
-							}`}
-							onClick={() => {
-								setRoute('patients');
-							}}
-						>
-							<ion-icon
-								name="ios-people"
-								className="sidenav__routes--option_icons"
-							></ion-icon>
-							<span className="sidenav__routes--option_text">Patients</span>
-						</Link>
-						<Link
-							to={`${url}/drugrequest`}
-							className={`sidenav__routes--option  ${
-								route === 'drugrequest' ? 'active' : null
-							}`}
-							onClick={() => {
-								setRoute('drugrequest');
-							}}
-						>
-							<ion-icon
-								name="ios-cart"
-								className="sidenav__routes--option_icons"
-							></ion-icon>
-							<span className="sidenav__routes--option_text">Drug request</span>
-						</Link>
-					</>
-				) : null}
+				<Link
+					to={`${url}/patients`}
+					className={`sidenav__routes--option  ${
+						route === 'patients' ? 'active' : null
+					}`}
+					onClick={() => {
+						setRoute('patients');
+					}}
+				>
+					<ion-icon
+						name="ios-people"
+						className="sidenav__routes--option_icons"
+					></ion-icon>
+					<span className="sidenav__routes--option_text">Patients</span>
+				</Link>
+				<Link
+					to={`${url}/drugrequest`}
+					className={`sidenav__routes--option  ${
+						route === 'drugrequest' ? 'active' : null
+					}`}
+					onClick={() => {
+						setRoute('drugrequest');
+					}}
+				>
+					<ion-icon
+						name="ios-cart"
+						className="sidenav__routes--option_icons"
+					></ion-icon>
+					<span className="sidenav__routes--option_text">Drug request</span>
+				</Link>
 				<Link
 					to={`${url}/emergencyrequest`}
 					className={`sidenav__routes--option  ${
