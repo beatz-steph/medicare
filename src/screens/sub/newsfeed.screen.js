@@ -32,9 +32,10 @@ const NewsFeed = () => {
 	}, []);
 	return (
 		<View>
-			{newsfeed.map((feed) => {
-				return <Card key={feed._id} feed={feed} />;
-			})}
+			{newsfeed &&
+				newsfeed.map((feed) => {
+					return <Card key={feed._id} feed={feed} />;
+				})}
 		</View>
 	);
 };
