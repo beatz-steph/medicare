@@ -157,7 +157,7 @@ const SignUp = ({
 					}}
 				>
 					Alreday hane an account?
-					<span className="auth__swap-main"> Sign In</span>
+					<span className="auth__swap-main"> Sign Up</span>
 				</h3>
 				<h3 className="auth__swap">Forgot password</h3>
 			</div>
