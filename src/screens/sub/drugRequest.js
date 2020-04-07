@@ -116,8 +116,8 @@ const DrugRequest = () => {
 				<thead
 					className="thead"
 					style={{
-						backgroundColor: '#172C4F',
-						color: '#fff',
+						backgroundColor: '#DDECF7',
+						color: 'rgba(0, 0, 0, 0.35)',
 						marginTop: '1rem',
 					}}
 				>

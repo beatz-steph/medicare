@@ -18,6 +18,8 @@ const ModalHolder = styled.div`
 	z-index: 300;
 `;
 
+const baseurl = process.env.REACT_APP_BASE_URL;
+
 const App = () => {
 	const [token, setToken] = useState(localStorage.getItem('token') || '');
 	const [currentUser, setCurrentUser] = useState('');
@@ -25,18 +27,14 @@ const App = () => {
 	useEffect(() => {
 		async function getCurrentUser() {
 			try {
-				const auth = await axios.get(
-					'https://medicare-server.herokuapp.com/api/v1/auth/',
-					{
-						headers: { Authorization: `Bearer ${token}` },
-					},
-				);
+				const auth = await axios.get(`${baseurl}/api/v1/auth/`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				setCurrentUser(auth.data);
 			} catch (err) {
-				console.log(err.response.data.error);
+				console.log(err);
 			}
 		}
-
 		getCurrentUser();
 	}, [token]);
 

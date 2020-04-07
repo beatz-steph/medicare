@@ -4,6 +4,8 @@ import axios from 'axios';
 import SignIn from '../sign-in/signin.component';
 import SignUp from '../sign-up/signup.component';
 
+const baseurl = process.env.REACT_APP_BASE_URL;
+
 const SignInSignUp = ({ setCurrentUser, setToken }) => {
 	const [showSignUp, setShowSignUp] = useState(false);
 	const [isFetching, setIsFetching] = useState(false);
@@ -21,9 +23,7 @@ const SignInSignUp = ({ setCurrentUser, setToken }) => {
 	}) => {
 		try {
 			const auth = await axios.post(
-				`https://medicare-server.herokuapp.com/api/v1/auth/${
-					occupation ? 'patient' : 'doctor'
-				}/signup`,
+				`${baseurl}/api/v1/auth/${!occupation ? 'patient' : 'doctor'}/signup`,
 				{
 					email,
 					surname,
@@ -48,7 +48,7 @@ const SignInSignUp = ({ setCurrentUser, setToken }) => {
 	const __signin = async ({ email, password, occupation }) => {
 		try {
 			let auth = await axios.post(
-				`https://medicare-server.herokuapp.com/api/v1/auth/${
+				`${baseurl}/api/v1/auth/${
 					occupation === 'doctor' ? 'doctor' : 'patient'
 				}/signin`,
 				{

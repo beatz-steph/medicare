@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import Card from '../../components/card/card.component';
 
+const baseurl = process.env.REACT_APP_BASE_URL;
+
 const View = styled.div`
 	width: 82%;
 	padding: 2rem 3%;
@@ -17,9 +19,7 @@ const NewsFeed = () => {
 	useEffect(() => {
 		let fetch = async () => {
 			try {
-				let news = await (
-					await axios.get('https://medicare-server.herokuapp.com/api/v1/news')
-				).data;
+				let news = await (await axios.get(`${baseurl}/api/v1/news`)).data;
 				console.log(news);
 				setNewsfeed(news);
 			} catch (err) {
@@ -27,6 +27,8 @@ const NewsFeed = () => {
 			}
 		};
 		fetch();
+
+		return setNewsfeed([]);
 	}, []);
 	return (
 		<View>
