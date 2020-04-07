@@ -1,103 +1,110 @@
 .top-navigation {
-    background-color: #ffffff;
-    height: 6rem;
-    display: flex;
-    align-items: center;
+	background-color: #ffffff;
+	height: 6rem;
+	display: flex;
+	align-items: center;
 
-    &__noification {
-        &--icon {
-            background-color: #1b82c7;
-            width: 4rem;
-            height: 4rem;
-            border-radius: 5px;
-            margin-right: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+	&__noification {
+		&--icon {
+			background-color: #1b82c7;
+			width: 4rem;
+			height: 4rem;
+			border-radius: 5px;
+			margin-right: 2rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 
-            ion-icon {
-                font-size: 2.5rem;
-                fill: #ffffff;
-            }
-        }
-    }
+			ion-icon {
+				font-size: 2.5rem;
+				fill: #ffffff;
+			}
+		}
+	}
 
-    &__dropdown {
-        margin: 0 7rem 0 0;
-        width: 12rem;
-        height: 4rem;
-        background-color: #C0C9D6;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
+	&__dropdown {
+		margin: 0 7rem 0 0;
+		width: 12rem;
+		height: 4rem;
+		background-color: #c0c9d6;
+		border-radius: 5px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
 
-        &--main {
-            border-radius: 50%;
-            background-color: #F6F7F9;
-            height: 3rem;
-            width: 3rem;
-        }
+		&--main {
+			border-radius: 50%;
+			background-color: #f6f7f9;
+			height: 3rem;
+			width: 3rem;
+		}
 
-        &--sub {
-            position: absolute;
-            width: 23rem;
-            height: 8rem;
-            background-color: blue;
-            bottom: -.5rem;
-            border-radius: 5px;
-            right: 0;
-            transform: translate(0, 100%);
-            z-index: 200;
-        }
-    }
+		&--sub {
+			position: absolute;
+			width: 23rem;
+			height: 8rem;
+			background-color: blue;
+			bottom: -0.5rem;
+			border-radius: 5px;
+			right: 0;
+			transform: translate(0, 100%);
+			z-index: 200;
+		}
+	}
 }
 
 .search-bar {
-    height: 4rem;
-    border-radius: 5px;
-    background-color: #F6F7F9;
-    overflow: hidden;
-    width: 35rem;
-    display: flex;
-    flex-direction: row;
-    margin-left: 7rem;
-    margin-right: auto;
+	height: 4rem;
+	border-radius: 5px;
+	background-color: #f6f7f9;
+	width: 35rem;
+	display: flex;
+	flex-direction: row;
+	margin: 2rem auto;
+	align-items: center;
+	position: relative;
 
-    @media screen and (max-width:800px) {
-        width: 20rem;
-    }
+	ul {
+		position: absolute;
+		top: 7rem;
+		left: 50%;
+		width: 40rem;
+		transform: translateX(-50%);
+	}
 
-    ion-icon {
-        width: 15%;
-        align-self: center;
-        font-size: 2.3rem;
-        fill: #C0C9D6;
-    }
+	@media screen and (max-width: 800px) {
+		width: 20rem;
+	}
 
-    &__input {
-        width: 80%;
-        outline: none;
-        border: none;
-        color: #C0C9D6;
-        font-size: 1.6rem;
-        font-weight: 400;
-        background-color: transparent;
+	ion-icon {
+		width: 15%;
+		align-self: center;
+		font-size: 2.3rem;
+		fill: #c0c9d6;
+	}
 
+	&__input {
+		width: 80%;
+		outline: none;
+		border: none;
+		color: #c0c9d6;
+		font-size: 1.6rem;
+		font-weight: 400;
+		background-color: transparent;
 
-        &::placeholder {
-            color: #C0C9D6;
-            font-size: 1.3rem;
-            font-weight: 400;
-        }
-    }
+		&::placeholder {
+			color: #c0c9d6;
+			font-size: 1.3rem;
+			font-weight: 400;
+		}
+	}
 }
 
 .Log-out__button {
-    font-size: 1.7rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin: 2rem auto;
-    cursor: pointer;
+	font-size: 1.7rem;
+	font-weight: 600;
+	color: #ffffff;
+	margin: 2rem auto;
+	cursor: pointer;
 }
