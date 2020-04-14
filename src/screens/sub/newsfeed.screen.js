@@ -11,6 +11,10 @@ const View = styled.div`
 	width: 82%;
 	padding: 2rem 3%;
 	overflow-y: scroll;
+
+	@media (max-width: 500px) {
+		width: 100vw;
+	}
 `;
 
 const NewsFeed = () => {
@@ -32,9 +36,10 @@ const NewsFeed = () => {
 	}, []);
 	return (
 		<View>
-			{newsfeed.map((feed) => {
-				return <Card key={feed._id} feed={feed} />;
-			})}
+			{newsfeed &&
+				newsfeed.map((feed) => {
+					return <Card key={feed._id} feed={feed} />;
+				})}
 		</View>
 	);
 };

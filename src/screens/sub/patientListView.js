@@ -42,7 +42,7 @@ const PatientList = ({ patients }) => {
 					}}
 				>
 					<tr>
-						<th scope="col"></th>
+						<th scope="col">S/N</th>
 						<th scope="col">Firstname</th>
 						<th scope="col">Surname</th>
 						<th scope="col">Email</th>

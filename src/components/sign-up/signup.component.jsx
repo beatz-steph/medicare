@@ -147,7 +147,7 @@ const SignUp = ({
 				name="confirmPassword"
 				placeholder="Confirm password"
 			/>
-			<Btn>{isFetching ? <Loader /> : 'Sign in'}</Btn>
+			<Btn>{isFetching ? <Loader /> : 'Sign Up'}</Btn>
 			<div className="auth__bottom">
 				<h3
 					className="auth__swap"
@@ -159,7 +159,6 @@ const SignUp = ({
 					Alreday hane an account?
 					<span className="auth__swap-main"> Sign In</span>
 				</h3>
-				<h3 className="auth__swap">Forgot password</h3>
 			</div>
 		</form>
 	);

@@ -23,7 +23,7 @@ const SignInSignUp = ({ setCurrentUser, setToken }) => {
 	}) => {
 		try {
 			const auth = await axios.post(
-				`${baseurl}/api/v1/auth/${!occupation ? 'patient' : 'doctor'}/signup`,
+				`${baseurl}/api/v1/auth/${occupation}/signup`,
 				{
 					email,
 					surname,

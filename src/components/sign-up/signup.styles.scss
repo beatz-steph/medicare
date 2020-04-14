@@ -8,6 +8,12 @@
     overflow: hidden;
     box-shadow: 0 0 2.5rem 0 rgba(136, 152, 170, .25);
 
+    @media (max-width: 500px) {
+      width: 100vw;
+      margin: 3rem auto 4rem auto;
+    }
+
+
   }
 
   .form__title {
@@ -33,6 +39,8 @@
       flex-direction: row;
       justify-content: space-between;
       margin: 2rem 2rem 3rem 2rem;
+
+
     }
 
     &__swap {
@@ -41,10 +49,18 @@
       font-size: 1.3rem;
       cursor: pointer;
 
+      @media (max-width: 500px) {
+        font-size: 1rem;
+      }
+
       &-main {
         color: #1B82C7;
         font-weight: 600;
         font-size: 1.4rem;
+
+        @media (max-width: 500px) {
+          font-size: 1rem;
+        }
       }
     }
   }
