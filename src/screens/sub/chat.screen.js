@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -26,13 +25,17 @@ const DoctorMessage = styled.div`
 const MessageBox = styled.form`
 	background-color: #d9d9d9;
 	padding: 1rem;
-	position: fixed;
+	position: absolute;
 	bottom: 0;
 	width: 100%;
 	left: 0;
 	justify-content: center;
 	align-items: center;
 	display: flex;
+
+	@media (max-width: 500px) {
+		position: fixed;
+	}
 `;
 
 const MessageInput = styled.input`
@@ -64,10 +67,8 @@ const Button = styled.button`
 `;
 
 const ChatContainer = styled.div`
-	overflow-y: scroll;
 	width: 100vw;
 	height: 100%;
-	padding: 3% 10%;
 	display: flex;
 	flex-direction: column;
 	position: relative;
@@ -230,7 +231,15 @@ class ChatScreen extends React.Component {
 	render() {
 		return this.props.currentUser && this.props.currentUser.patient ? (
 			<ChatContainer>
-				<div style={{ display: 'flex', flexDirection: 'column' }}>
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						overflowY: 'scroll',
+						height: '90%',
+						padding: '0 3rem',
+					}}
+				>
 					{this.props.chatHistory &&
 						this.props.chatHistory.length > 0 &&
 						this.props.chatHistory.map((chat, index) => {
@@ -249,7 +258,8 @@ class ChatScreen extends React.Component {
 						style={{
 							float: 'left',
 							clear: 'both',
-							height: '7rem',
+							height: '4rem',
+							margin: '2rem 3rem 0 3rem',
 						}}
 						ref={(el) => {
 							this.messagesEnd = el;

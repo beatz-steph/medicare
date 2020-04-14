@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import './dashboard.styles.scss';

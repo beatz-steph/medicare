@@ -32,7 +32,9 @@ const NewsFeed = () => {
 		};
 		fetch();
 
-		return setNewsfeed([]);
+		return () => {
+			setNewsfeed([]);
+		};
 	}, []);
 	return (
 		<View>

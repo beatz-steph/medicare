@@ -17,7 +17,7 @@ const LandingScreen = ({ setCurrentUser, setToken }) => {
 				</div>
 			</ul> */}
 			<div className="landing__text">
-				<h1 className="landing__text--main">Welcome to Blessed Medicare!</h1>
+				<h1 className="landing__text--main">Welcome to Blessed Dokitaa!</h1>
 				<h1 className="landing__text--sub">
 					The worlds best medical chat platform
 				</h1>
