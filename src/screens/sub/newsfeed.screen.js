@@ -11,6 +11,10 @@ const View = styled.div`
 	width: 82%;
 	padding: 2rem 3%;
 	overflow-y: scroll;
+
+	@media (max-width: 500px) {
+		width: 100vw;
+	}
 `;
 
 const NewsFeed = () => {

@@ -24,10 +24,9 @@ const DoctorMessage = styled.div`
 `;
 
 const MessageBox = styled.form`
-	background-color: rgba(0, 0, 0, 0.15);
-	min-height: 7rem;
+	background-color: #d9d9d9;
 	padding: 1rem;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	width: 100%;
 	left: 0;
@@ -66,7 +65,7 @@ const Button = styled.button`
 
 const ChatContainer = styled.div`
 	overflow-y: scroll;
-	width: 82%;
+	width: 100vw;
 	height: 100%;
 	padding: 3% 10%;
 	display: flex;
@@ -131,6 +130,12 @@ const Heading = styled.div`
 	margin-bottom: 1.7rem;
 `;
 
+const IntroMsg = styled.div`
+	font-size: 2rem;
+	text-align: center;
+	margin: auto;
+`;
+
 class ChatScreen extends React.Component {
 	// let [message, setMessage] = useState('');
 
@@ -144,6 +149,20 @@ class ChatScreen extends React.Component {
 	// componentWillUpdate() {
 	// 	this.filterByPatient();
 	// }
+
+	messagesEnd;
+
+	scrollToBottom = () => {
+		this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+	};
+
+	componentDidMount() {
+		this.scrollToBottom();
+	}
+
+	componentDidUpdate() {
+		this.scrollToBottom();
+	}
 
 	filterByPatient = () => {
 		if (this.props.currentUser.patient) {
@@ -211,17 +230,32 @@ class ChatScreen extends React.Component {
 	render() {
 		return this.props.currentUser && this.props.currentUser.patient ? (
 			<ChatContainer>
-				{this.props.chatHistory &&
-					this.props.chatHistory.length > 0 &&
-					this.props.chatHistory.map((chat, index) => {
-						if (chat.profession === 'patient') {
-							return <DoctorMessage key={index}>{chat.message}</DoctorMessage>;
-						} else {
-							return (
-								<PatientMessage key={index}>{chat.message}</PatientMessage>
-							);
-						}
-					})}
+				<div style={{ display: 'flex', flexDirection: 'column' }}>
+					{this.props.chatHistory &&
+						this.props.chatHistory.length > 0 &&
+						this.props.chatHistory.map((chat, index) => {
+							if (chat.profession === 'patient') {
+								return (
+									<DoctorMessage key={index}>{chat.message}</DoctorMessage>
+								);
+							} else {
+								return (
+									<PatientMessage key={index}>{chat.message}</PatientMessage>
+								);
+							}
+						})}
+
+					<div
+						style={{
+							float: 'left',
+							clear: 'both',
+							height: '7rem',
+						}}
+						ref={(el) => {
+							this.messagesEnd = el;
+						}}
+					></div>
+				</div>
 				<MessageBox onSubmit={this.__onSubmitPatient}>
 					<MessageInput
 						type="text"
@@ -268,29 +302,35 @@ class ChatScreen extends React.Component {
 					})}
 				</OnlinePatientsList>
 				<DocConvo>
-					{this.props.chatHistory
-						.filter((msg) => msg.details.id === this.state.selectedChatId)
-						.map((chat, index) => {
-							if (chat.profession === 'doctor') {
-								return (
-									<DoctorMessage key={index}>{chat.message}</DoctorMessage>
-								);
-							} else {
-								return (
-									<PatientMessage key={index}>{chat.message}</PatientMessage>
-								);
-							}
-						})}
-					<MessageBox onSubmit={this.__onSubmitDoctor}>
-						<MessageInput
-							type="text"
-							value={this.state.message}
-							onChange={this.__onChange}
-						/>
-						<Button>
-							<ion-icon name="send"></ion-icon>
-						</Button>
-					</MessageBox>
+					<div>
+						{this.props.chatHistory
+							.filter((msg) => msg.details.id === this.state.selectedChatId)
+							.map((chat, index) => {
+								if (chat.profession === 'doctor') {
+									return (
+										<DoctorMessage key={index}>{chat.message}</DoctorMessage>
+									);
+								} else {
+									return (
+										<PatientMessage key={index}>{chat.message}</PatientMessage>
+									);
+								}
+							})}
+					</div>
+					{this.state.selectedChatId ? (
+						<MessageBox onSubmit={this.__onSubmitDoctor}>
+							<MessageInput
+								type="text"
+								value={this.state.message}
+								onChange={this.__onChange}
+							/>
+							<Button>
+								<ion-icon name="send"></ion-icon>
+							</Button>
+						</MessageBox>
+					) : (
+						<IntroMsg>Select a patient to start a conversation</IntroMsg>
+					)}
 				</DocConvo>
 			</DocChatContainer>
 		);
